@@ -44,7 +44,7 @@ def convert_latitude(lat):
         minutes += seconds/60
         degrees -= minutes/60
 
-    alpha = (abs(degrees) * 3.14159265359)/180
+    alpha = (degrees * 3.14159265359)/180
     latitude = alpha * 6371
     
     return latitude
@@ -88,7 +88,7 @@ def convert_longitude(long):
         minutes += seconds/60
         degrees -= minutes/60
 
-    alpha = (abs(degrees) * 3.14159265359)/180
+    alpha = (degrees * 3.14159265359)/180
     longitude = alpha * 6371
 
     return longitude
