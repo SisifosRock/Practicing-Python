@@ -40,6 +40,7 @@ if day == 'sunday':
             sub3 = random.choice(subjects)
 
     first += sub1
+    second += sub2
     third += sub3
 
     a = print('a)' + first)
