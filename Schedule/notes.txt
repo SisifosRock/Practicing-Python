@@ -1,7 +1,7 @@
 < Study notes >
 
 ============================== Started at 9:07, 1/23/2018 ==============================
-tuesday
+Tuesday
 
 Programming
 1- i didn't learn java
