@@ -1,7 +1,7 @@
 """ This program calculates the distance between two near cities """
 
 def sqrt(n):
-    """ i'll use square root at the end on the  pythagorean theorem """
+    """ i'll use square root at the end on a  pythagorean theorem """
     epsilon = 0.0001
     b = 2
 
