@@ -52,13 +52,17 @@ if day != 'saturday':
     a = notes_()
     notes += '\n{}\n{} \n'.format(sub1, a)
 
-    print('b)' + sub2)
-    b = notes_()
-    notes += '\n{}\n{} \n'.format(sub2, b)
+    more = str(input('Do you want to study more? ')).lower()
+    if more == 'yes':
+        print('b)' + sub2)
+        b = notes_()
+        notes += '\n{}\n{} \n'.format(sub2, b)
 
-    print('c)' + sub3)
-    c = notes_()
-    notes += '\n{}:\n{} \n'.format(sub3, c)
+        more2 = str(input('Do you want to study more? ')).lower()
+        if more2 == 'yes':
+            print('c)' + sub3)
+            c = notes_()
+            notes += '\n{}:\n{} \n'.format(sub3, c)
 
 else:
     sub1 = str(random.choice(subjects))
@@ -76,9 +80,11 @@ else:
     b = notes_()
     notes += '\n{}:\n{} \n'.format(sub1, b)
 
-    print('c)' + sub2)
-    c = notes_()
-    notes += '\n{}:\n{} \n'.format(sub2, c)
+    more = str(input('Do you want to study more? ')).lower()
+    if more == 'yes':
+        print('c)' + sub2)
+        c = notes_()
+        notes += '\n{}:\n{} \n'.format(sub2, c)
 
 
 
@@ -87,6 +93,7 @@ finish_hour = '{}:{}'.format(finish.tm_hour, finish.tm_min)
 print('Finished at: {}'.format(start_hour))
 
 strt = str('\n\n' + '='*30 + ' Started at ' + start_hour + ', {}/{}/{}'.format(start.tm_mon, start.tm_mday, start.tm_year) + ' ' + '='*30)
+fnsh = str('\n\n' + '='*30 + ' Finished at ' + finish_hour + ', {}/{}/{}'.format(finish.tm_mon, finish.tm_mday, finish.tm_year) + ' ' + '='*29)
 
 amount_min = finish.tm_min - start.tm_min
 
@@ -112,7 +119,7 @@ f = open('notes.txt','a')
 f.write(strt)
 f.write('\n' + day.title() + '\n' + notes)
 f.write('\n' + amount)
+f.write(fnsh)
 f.close()
 
 print('You are done today!')
-
