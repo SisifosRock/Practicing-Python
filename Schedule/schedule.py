@@ -80,10 +80,12 @@ if load == 'yes':
     sub1 = load_data()[0][:-1]
                 
     if len(load_data()) > 1:
-        sub2 = load_data()[1][:-1]
+        if load_data()[1][:-1] != '':
+            sub2 = load_data()[1][:-1]
     
     if len(load_data()) > 2:
-        sub3 = load_data()[2]
+        if load_data()[2] != '':
+            sub3 = load_data()[2]
 
 warranty = load_data()
 delete_data()
