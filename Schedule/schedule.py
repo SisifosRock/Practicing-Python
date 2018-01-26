@@ -15,13 +15,14 @@ notes = ''
 
 days = ['sunday', 'monday','tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
 
-subjects = ['Mathematics I', 'Mathematics II', 'Mathematics III', 'Physics I','Physics II', 'Physics III',
-            'Programming','English', 'Other languages','Programming','Chemistry']
+subjects = ['Mathematics I', 'Mathematics II', 'Mathematics III', 'Physics I','Physics II',
+            'Physics III', 'Programming','English', 'Other languages','Programming','Chemistry',
+            'Python', 'Java', 'Web development', 'C++', 'Data Science', 'Biology']
 
-day = input('What day is it? \n')
+day = str(input('What day is it? \n')).lower()
 while day not in days:
     print('Please insert a valid day')
-    day = input('What day is it? ')
+    day = str(input('What day is it? \n')).lower()
 
 
 
@@ -35,58 +36,87 @@ def notes_():
         ask = str(input('Anymore notes? \n')).lower()
     return note
 
-if day != 'saturday':
-    sub1 = random.choice(subjects)
-    for i in range(len(subjects) - 2):
-        if subjects[i] == sub1:
-            subjects.pop(i)
+def save(sub):
+    save = str(input('Do you want to continue studying this subject later? ')).lower()
+    if save == 'yes':
+        save_file = open('save/save.txt ', 'a')
+        save_file.write(sub + '\n')
+        save_file.close()
+    return None
 
-    sub2 = random.choice(subjects)
-    for i in range(len(subjects) - 2):
-        if subjects[i] == sub2:
-            subjects.pop(i)
+def save_(sub):
+    save_file = open('save/save.txt ', 'a')
+    save_file.write(sub + '\n')
+    save_file.close()
+    return None
 
-    sub3 = random.choice(subjects)
+def load_data():
+    file = open('save/save.txt', 'r')
+    sub = file.readlines()
+    file.close()
+    return sub
 
-    print('a)' + sub1)
-    a = notes_()
-    notes += '\n{}\n{} \n'.format(sub1, a)
+def delete_data():
+    file = open('save/save.txt', 'w')
+    file.close()
+    return None
 
-    more = str(input('Do you want to study more? ')).lower()
-    if more == 'yes':
-        print('b)' + sub2)
-        b = notes_()
-        notes += '\n{}\n{} \n'.format(sub2, b)
+sub1 = random.choice(subjects)
+for i in range(len(subjects) - 2):
+    if subjects[i] == sub1:
+        subjects.pop(i)
 
-        more2 = str(input('Do you want to study more? ')).lower()
-        if more2 == 'yes':
-            print('c)' + sub3)
-            c = notes_()
-            notes += '\n{}:\n{} \n'.format(sub3, c)
+sub2 = random.choice(subjects)
+for i in range(len(subjects) - 2):
+    if subjects[i] == sub2:
+        subjects.pop(i)
+        
+sub3 = random.choice(subjects)
 
+load = str(input('Load continuation of study? ')).lower()
+if load == 'yes':
+    assert len(load_data()) > 0, 'No schedule saved'
+    
+    sub1 = load_data()[0][:-1]
+                
+    if len(load_data()) > 1:
+        sub2 = load_data()[1][:-1]
+    
+    if len(load_data()) > 2:
+        sub3 = load_data()[2]
+
+warranty = load_data()
+delete_data()
+
+print('a)' + sub1)
+a = str(notes_())
+notes += '\n{}\n{} \n'.format(sub1, a)
+save(sub1)
+
+more = str(input('Do you want to study more? ')).lower()
+if more == 'yes':
+    print('b)' + sub2)
+    b = str(notes_())
+    notes += '\n{}\n{} \n'.format(sub2, b)
+    save(sub2)
+
+    more2 = str(input('Do you want to study more? ')).lower()
+    if more2 == 'yes':
+        print('c)' + sub3)
+        c = str(notes_())
+        notes += '\n{}:\n{} \n'.format(sub3, c)
+        save(sub3)
+        
 else:
-    sub1 = str(random.choice(subjects))
-    for i in range(len(subjects) - 2):
-        if subjects[i] == sub1:
-            subjects.pop(i)
-
-    sub2 = random.choice(subjects)
-
-    print('a)' + 'Read about the tests and stuff ')
-    a = notes_()
-    notes += '\n{}: \n{} \n'.format('Read about the tests and stuff ', a)
-
-    print('b)' + sub1)
-    b = notes_()
-    notes += '\n{}:\n{} \n'.format(sub1, b)
-
-    more = str(input('Do you want to study more? ')).lower()
-    if more == 'yes':
-        print('c)' + sub2)
-        c = notes_()
-        notes += '\n{}:\n{} \n'.format(sub2, c)
-
-
+    if len(warranty) > 2:
+        ask = str(input('Do you want to keep the saved schedule?\n'))
+        if ask == 'yes':
+            save_(sub2)
+            save_(sub3)
+    elif len(warranty) == 2:
+        ask = str(input('Do you want to keep the saved schedule?\n'))
+        if ask == 'yes':
+            save_(sub2)
 
 finish = time.localtime()
 finish_hour = '{}:{}'.format(finish.tm_hour, finish.tm_min)
