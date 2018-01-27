@@ -73,6 +73,8 @@ for i in range(len(subjects) - 2):
         
 sub3 = random.choice(subjects)
 
+warranty = load_data()
+
 load = str(input('Load continuation of study? ')).lower()
 if load == 'yes':
     assert len(load_data()) > 0, 'No schedule saved'
@@ -87,38 +89,68 @@ if load == 'yes':
         if load_data()[2] != '':
             sub3 = load_data()[2]
 
-warranty = load_data()
-delete_data()
+    delete_data()
 
-print('a)' + sub1)
-a = str(notes_())
-notes += '\n{}\n{} \n'.format(sub1, a)
-save(sub1)
+    print('a)' + sub1)
+    a = str(notes_())
+    notes += '\n{}\n{} \n'.format(sub1, a)
+    save(sub1)
 
-more = str(input('Do you want to study more? ')).lower()
-if more == 'yes':
-    print('b)' + sub2)
-    b = str(notes_())
-    notes += '\n{}\n{} \n'.format(sub2, b)
-    save(sub2)
+    more = str(input('Do you want to study more? ')).lower()
+    if more == 'yes':
+        print('b)' + sub2)
+        b = str(notes_())
+        notes += '\n{}\n{} \n'.format(sub2, b)
+        save(sub2)
 
-    more2 = str(input('Do you want to study more? ')).lower()
-    if more2 == 'yes':
-        print('c)' + sub3)
-        c = str(notes_())
-        notes += '\n{}:\n{} \n'.format(sub3, c)
-        save(sub3)
-        
+        more2 = str(input('Do you want to study more? ')).lower()
+        if more2 == 'yes':
+            print('c)' + sub3)
+            c = str(notes_())
+            notes += '\n{}:\n{} \n'.format(sub3, c)
+            save(sub3)
+
+    else:
+        if len(warranty) > 2:
+            ask = str(input('Do you want to keep the saved schedule?\n'))
+            if ask == 'yes':
+                save_(sub2)
+                save_(sub3)
+        elif len(warranty) == 2:
+            ask = str(input('Do you want to keep the saved schedule?\n'))
+            if ask == 'yes':
+                save_(sub2)
+
+
+
 else:
-    if len(warranty) > 2:
-        ask = str(input('Do you want to keep the saved schedule?\n'))
-        if ask == 'yes':
-            save_(sub2)
-            save_(sub3)
-    elif len(warranty) == 2:
-        ask = str(input('Do you want to keep the saved schedule?\n'))
-        if ask == 'yes':
-            save_(sub2)
+    if len(load_data()) > 0:
+        keep = str(input('Do you want to keep the saved schedule?\n')).lower()
+        if keep != 'yes':
+            delete_data()
+
+    print('a)' + sub1)
+    a = str(notes_())
+    notes += '\n{}\n{} \n'.format(sub1, a)
+    save(sub1)
+
+    more = str(input('Do you want to study more? ')).lower()
+    if more == 'yes':
+        print('b)' + sub2)
+        b = str(notes_())
+        notes += '\n{}\n{} \n'.format(sub2, b)
+        save(sub2)
+
+        more2 = str(input('Do you want to study more? ')).lower()
+        if more2 == 'yes':
+            print('c)' + sub3)
+            c = str(notes_())
+            notes += '\n{}:\n{} \n'.format(sub3, c)
+            save(sub3)
+
+
+
+
 
 finish = time.localtime()
 finish_hour = '{}:{}'.format(finish.tm_hour, finish.tm_min)
