@@ -78,7 +78,7 @@ warranty = load_data()
 load = str(input('Load continuation of study? ')).lower()
 if load == 'yes':
     assert len(load_data()) > 0, 'No schedule saved'
-    
+
     sub1 = load_data()[0][:-1]
                 
     if len(load_data()) > 1:
