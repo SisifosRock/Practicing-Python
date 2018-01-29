@@ -36,6 +36,44 @@ def notes_():
         ask = str(input('Anymore notes? \n')).lower()
     return note
 
+def notes_save(sub):
+    finish = time.localtime()
+    finish_hour = '{}:{}'.format(finish.tm_hour, finish.tm_min)
+    print('Finished at: {}'.format(start_hour))
+
+    strt = str('\n\n' + '=' * 30 + ' Started at ' + start_hour + ', {}/{}/{}'.format(start.tm_mon, start.tm_mday,
+                                                                                     start.tm_year) + ' ' + '=' * 30)
+    fnsh = str('\n\n' + '=' * 30 + ' Finished at ' + finish_hour + ', {}/{}/{}'.format(finish.tm_mon, finish.tm_mday,
+                                                                                       finish.tm_year) + ' ' + '=' * 29)
+
+    amount_min = finish.tm_min - start.tm_min
+
+    if amount_min < 0:
+        amount_min = 60 + amount_min
+        amount_hour = finish.tm_hour - start.tm_hour - 1
+        if amount_hour == 0:
+            amount = 'Study time: {} minute(s)'.format(amount_min)
+
+        else:
+            amount = 'Study time: {} hour(s) and {} minute(s)'.format(amount_hour, amount_min)
+
+
+    else:
+        amount_hour = finish.tm_hour - start.tm_hour
+        if amount_hour == 0:
+            amount = 'Study time: {} minute(s)'.format(amount_min)
+
+        else:
+            amount = 'Study time: {} hour(s) and {} minute(s)'.format(amount_hour, amount_min)
+
+    f = open('Notes/' + str(sub) + ' - Notes.txt', 'a')
+    f.write(strt)
+    f.write('\n' + day.title() + '\n' + notes)
+    f.write('\n' + amount)
+    f.write(fnsh)
+    f.close()
+
+
 def save(sub):
     save = str(input('Do you want to continue studying this subject later? ')).lower()
     if save == 'yes':
@@ -93,21 +131,27 @@ if load == 'yes':
 
     print('a)' + sub1)
     a = str(notes_())
-    notes += '\n{}\n{} \n'.format(sub1, a)
+    notes = '\n{}\n{} \n'.format(sub1, a)
+    notes_save(sub1)
+
     save(sub1)
 
     more = str(input('Do you want to study more? ')).lower()
     if more == 'yes':
         print('b)' + sub2)
         b = str(notes_())
-        notes += '\n{}\n{} \n'.format(sub2, b)
+        notes = '\n{}\n{} \n'.format(sub2, b)
+        notes_save(sub2)
+
         save(sub2)
 
         more2 = str(input('Do you want to study more? ')).lower()
         if more2 == 'yes':
             print('c)' + sub3)
             c = str(notes_())
-            notes += '\n{}:\n{} \n'.format(sub3, c)
+            notes = '\n{}:\n{} \n'.format(sub3, c)
+            notes_save(sub3)
+
             save(sub3)
 
     else:
@@ -131,59 +175,27 @@ else:
 
     print('a)' + sub1)
     a = str(notes_())
-    notes += '\n{}\n{} \n'.format(sub1, a)
+    notes = '\n{}\n{} \n'.format(sub1, a)
+    notes_save(sub1)
+
     save(sub1)
 
     more = str(input('Do you want to study more? ')).lower()
     if more == 'yes':
         print('b)' + sub2)
         b = str(notes_())
-        notes += '\n{}\n{} \n'.format(sub2, b)
+        notes = '\n{}\n{} \n'.format(sub2, b)
+        notes_save(sub2)
+
         save(sub2)
 
         more2 = str(input('Do you want to study more? ')).lower()
         if more2 == 'yes':
             print('c)' + sub3)
             c = str(notes_())
-            notes += '\n{}:\n{} \n'.format(sub3, c)
+            notes = '\n{}:\n{} \n'.format(sub3, c)
+            notes_save(sub3)
+
             save(sub3)
-
-
-
-
-
-finish = time.localtime()
-finish_hour = '{}:{}'.format(finish.tm_hour, finish.tm_min)
-print('Finished at: {}'.format(start_hour))
-
-strt = str('\n\n' + '='*30 + ' Started at ' + start_hour + ', {}/{}/{}'.format(start.tm_mon, start.tm_mday, start.tm_year) + ' ' + '='*30)
-fnsh = str('\n\n' + '='*30 + ' Finished at ' + finish_hour + ', {}/{}/{}'.format(finish.tm_mon, finish.tm_mday, finish.tm_year) + ' ' + '='*29)
-
-amount_min = finish.tm_min - start.tm_min
-
-if amount_min < 0:
-    amount_min = 60 + amount_min
-    amount_hour = finish.tm_hour - start.tm_hour - 1
-    if amount_hour == 0:
-        amount = 'Study time: {} minute(s) - you need to study more!'.format(amount_min)
-
-    else:
-        amount = 'Study time: {} hour(s) and {} minute(s)'.format(amount_hour, amount_min)
-
-
-else:
-    amount_hour = finish.tm_hour - start.tm_hour
-    if amount_hour == 0:
-        amount = 'Study time: {} minute(s) - you need to study more!'.format(amount_min)
-
-    else:
-        amount = 'Study time: {} hour(s) and {} minute(s)'.format(amount_hour, amount_min)
-
-f = open('notes.txt','a')
-f.write(strt)
-f.write('\n' + day.title() + '\n' + notes)
-f.write('\n' + amount)
-f.write(fnsh)
-f.close()
 
 print('You are done today!')
