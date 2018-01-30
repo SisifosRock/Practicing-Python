@@ -3,13 +3,16 @@
 import random
 import time
 
-start = time.localtime()
-start_min = str(start.tm_min)
-if len(start_min) == 1:
-    start_min = '0' + start_min
+def start():
+    start = time.localtime()
+    start_min = str(start.tm_min)
+    if len(start_min) == 1:
+        start_min = '0' + start_min
 
-start_hour = '{}:{}'.format(start.tm_hour, start_min)
-print('Started at: {}, {}/{}/{}'.format(start_hour,start.tm_mon, start.tm_mday, start.tm_year))
+    start_hour = '{}:{}'.format(start.tm_hour, start_min)
+    started = 'Started at: {}, {}/{}/{}'.format(start_hour,start.tm_mon, start.tm_mday, start.tm_year)
+
+    return (started, start_hour)
 
 notes = ''
 
@@ -36,21 +39,22 @@ def notes_():
         ask = str(input('Anymore notes? \n')).lower()
     return note
 
+
+
 def notes_save(sub):
+
     finish = time.localtime()
     finish_hour = '{}:{}'.format(finish.tm_hour, finish.tm_min)
-    print('Finished at: {}'.format(start_hour))
+    finished = 'Finished at: {}, {}/{}/{}'.format(finish_hour,finish.tm_mon, finish.tm_mday, finish.tm_year)
 
-    strt = str('\n\n' + '=' * 30 + ' Started at ' + start_hour + ', {}/{}/{}'.format(start.tm_mon, start.tm_mday,
-                                                                                     start.tm_year) + ' ' + '=' * 30)
-    fnsh = str('\n\n' + '=' * 30 + ' Finished at ' + finish_hour + ', {}/{}/{}'.format(finish.tm_mon, finish.tm_mday,
-                                                                                       finish.tm_year) + ' ' + '=' * 29)
+    strt = str('\n\n' + '=' * 30 + start()[0] + ' ' + '=' * 30)
+    fnsh = str('\n\n' + '=' * 30 + finished + ' ' + '=' * 29)
 
-    amount_min = finish.tm_min - start.tm_min
+    amount_min = finish.tm_min - int(start()[1][-2:])
 
     if amount_min < 0:
-        amount_min = 60 + amount_min
-        amount_hour = finish.tm_hour - start.tm_hour - 1
+        amount_min = 60 + int(start()[1][-2:])
+        amount_hour = finish.tm_hour - int(start()[1][:2]) - 1
         if amount_hour == 0:
             amount = 'Study time: {} minute(s)'.format(amount_min)
 
@@ -59,7 +63,7 @@ def notes_save(sub):
 
 
     else:
-        amount_hour = finish.tm_hour - start.tm_hour
+        amount_hour = finish.tm_hour - int(start()[1][:2])
         if amount_hour == 0:
             amount = 'Study time: {} minute(s)'.format(amount_min)
 
@@ -129,6 +133,8 @@ if load == 'yes':
 
     delete_data()
 
+
+    start()
     print('a)' + sub1)
     a = str(notes_())
     notes = '\n{}\n{} \n'.format(sub1, a)
@@ -138,6 +144,8 @@ if load == 'yes':
 
     more = str(input('Do you want to study more? ')).lower()
     if more == 'yes':
+
+        start()
         print('b)' + sub2)
         b = str(notes_())
         notes = '\n{}\n{} \n'.format(sub2, b)
@@ -147,6 +155,8 @@ if load == 'yes':
 
         more2 = str(input('Do you want to study more? ')).lower()
         if more2 == 'yes':
+
+            start()
             print('c)' + sub3)
             c = str(notes_())
             notes = '\n{}:\n{} \n'.format(sub3, c)
@@ -173,6 +183,7 @@ else:
         if keep != 'yes':
             delete_data()
 
+    start()
     print('a)' + sub1)
     a = str(notes_())
     notes = '\n{}\n{} \n'.format(sub1, a)
@@ -182,6 +193,8 @@ else:
 
     more = str(input('Do you want to study more? ')).lower()
     if more == 'yes':
+
+        start()
         print('b)' + sub2)
         b = str(notes_())
         notes = '\n{}\n{} \n'.format(sub2, b)
@@ -191,6 +204,8 @@ else:
 
         more2 = str(input('Do you want to study more? ')).lower()
         if more2 == 'yes':
+
+            start()
             print('c)' + sub3)
             c = str(notes_())
             notes = '\n{}:\n{} \n'.format(sub3, c)
